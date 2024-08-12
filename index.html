@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            background-color: #ff6f61;
+            transition: background-color 0.5s ease-in-out;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+        .menu-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
+            z-index: 100;
+        }
+        .dot {
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+        }
+        .sliding-menu {
+            position: fixed;
+            top: 0;
+            right: -200px;
+            width: 200px;
+            height: 100%;
+            background-color: #333;
+            padding-top: 60px;
+            transition: right 0.3s ease-in-out;
+            z-index: 99;
+        }
+        .sliding-menu ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sliding-menu ul li {
+            margin: 20px 0;
+        }
+        .sliding-menu ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 10px 20px;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+        .sliding-menu ul li a:hover {
+            background-color: #575757;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            flex: 1;
+            box-sizing: border-box;
+        }
+        .company_name {
+            font-family: 'Monotype Corsiva', cursive;
+            font-size: 50px;
+            text-align: center;
+            color: #f0f0f0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        .fixed-text {
+            font-size: 20px;
+        }
+        .dynamic-text {
+            font-size: 30px;
+            color: #fff5f5;
+            font-family: 'Courier New', monospace;
+        }
+        .text-container {
+            text-align: center;
+            margin-bottom: 20px;
+            animation: slideInUp 1s ease-out;
+        }
+        @keyframes slideInUp {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1em;
+            background-color: black;
+            animation: blink 1s step-start infinite;
+        }
+        .about {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        .about p {
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            color: #333333;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .about p::before {
+            font-size: 24px;
+            color: #00bfae;
+        }
+        .about-image {
+            width: 45%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            color: white; /* Dark text color */
+            background-color: black; /* Bright yellow */
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .button:hover {
+            background-color: white;
+            color: black; 
+        }
+        
+        .button:active {
+            transform: translateY(1px);
+        }
+        
+        .button:focus {
+            outline: none;
+        }
+        
+        @keyframes blink {
+            50% {
+                background-color: transparent;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <!-- 3-dot menu button -->
+    <div class="menu-button" onclick="toggleMenu()">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <!-- Sliding menu -->
+    <div class="sliding-menu" id="slidingMenu">
+        <ul>
+            <li><img src="file.png" width="200px"></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="box">
+            <p class="company_name">CollegeCupid</p>
+            <div id="text-container" class="text-container">
+                <b><span id="dynamic-text" class="dynamic-text"></span></b>
+                <span class="cursor"></span>
+            </div>
+            <div class="image-container">
+                <img src="test.png" alt="About Us Image" class="about-image">
+            </div>
+            <div class="about">
+                <p>Boring Dates? Not Here! Offline Blind Dating for University Students in Gandhinagar!</p>
+            </div>
+            <div class="buttons-container">
+                <a href="#" class="button">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const phrases = [
+            "Epic Encounter",
+            "Vivid Vibes",
+            "Love Leap",
+            "Date Discover"
+        ];
+    
+        const dynamicText = document.getElementById("dynamic-text");
+    
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let deleting = false;
+    
+        function typeAndDelete() {
+            const currentPhrase = phrases[phraseIndex];
+    
+            if (!deleting) {
+                dynamicText.textContent += currentPhrase.charAt(charIndex);
+                charIndex++;
+    
+                if (charIndex === currentPhrase.length) {
+                    deleting = true;
+                    setTimeout(typeAndDelete, 1000); 
+                    return;
+                }
+            } else {
+                dynamicText.textContent = dynamicText.textContent.slice(0, -1);
+                charIndex--;
+    
+                if (charIndex === 0) {
+                    deleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length; 
+                    setTimeout(typeAndDelete, 500); 
+                    return;
+                }
+            }
+    
+            const speed = deleting ? 40 : 55;
+            setTimeout(typeAndDelete, speed);
+        }
+    
+        typeAndDelete();
+
+        function toggleMenu() {
+            var menu = document.getElementById("slidingMenu");
+            if (menu.style.right === "0px") {
+                menu.style.right = "-200px";
+            } else {
+                menu.style.right = "0px";
+            }
+        }
+    </script>
+</body>
+</html>
